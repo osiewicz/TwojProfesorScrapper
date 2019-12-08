@@ -1,4 +1,8 @@
+**/*.com
+**/*.class
+**/*.dll
 *.exe
-*.dll
-*.pdb
-*.cache
+*.o
+*.so
+**/bin
+**/obj
