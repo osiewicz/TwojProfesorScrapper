@@ -1,8 +1,0 @@
-D:\Programming\TwojProfesorMD\LibScrapeTP1\obj\Debug\netcoreapp3.0\LibScrapeTP.AssemblyInfoInputs.cache
-D:\Programming\TwojProfesorMD\LibScrapeTP1\obj\Debug\netcoreapp3.0\LibScrapeTP.AssemblyInfo.cs
-D:\Programming\TwojProfesorMD\LibScrapeTP1\bin\Debug\netcoreapp3.0\LibScrapeTP.deps.json
-D:\Programming\TwojProfesorMD\LibScrapeTP1\bin\Debug\netcoreapp3.0\LibScrapeTP.dll
-D:\Programming\TwojProfesorMD\LibScrapeTP1\bin\Debug\netcoreapp3.0\LibScrapeTP.pdb
-D:\Programming\TwojProfesorMD\LibScrapeTP1\obj\Debug\netcoreapp3.0\LibScrapeTP.dll
-D:\Programming\TwojProfesorMD\LibScrapeTP1\obj\Debug\netcoreapp3.0\LibScrapeTP.pdb
-D:\Programming\TwojProfesorMD\LibScrapeTP1\obj\Debug\netcoreapp3.0\LibScrapeTP.csprojAssemblyReference.cache
