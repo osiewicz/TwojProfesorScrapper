@@ -1,5 +1,0 @@
-D:\Programming\TwojProfesorMD\LibScrapeTP\bin\Debug\netstandard2.0\LibScrapeTP.deps.json
-D:\Programming\TwojProfesorMD\LibScrapeTP\bin\Debug\netstandard2.0\LibScrapeTP.dll
-D:\Programming\TwojProfesorMD\LibScrapeTP\obj\Debug\netstandard2.0\LibScrapeTP.csprojAssemblyReference.cache
-D:\Programming\TwojProfesorMD\LibScrapeTP\obj\Debug\netstandard2.0\LibScrapeTP.AssemblyInfoInputs.cache
-D:\Programming\TwojProfesorMD\LibScrapeTP\obj\Debug\netstandard2.0\LibScrapeTP.AssemblyInfo.cs
