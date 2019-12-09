@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LibScrapeTP.ETLSteps.Extract
 {
-    internal class TutorPageFetcher
+    public class TutorPageFetcher
     {
         private readonly string _fsPath;
         public TutorPageFetcher(string fsTargetPath)
@@ -18,8 +18,9 @@ namespace LibScrapeTP.ETLSteps.Extract
         }
 
         private static readonly SHA1 Sha = SHA1.Create();
-        private static readonly Func<string, string> NameProvider = str => Sha.ComputeHash(Encoding.ASCII.GetBytes(str)).ToString();
-        public void GetPages(List<string> tutorPageUrls)
+        private static readonly Func<string, string> NameProvider = str => BitConverter.ToString(Sha.ComputeHash(Encoding.ASCII.GetBytes(str)));
+        // Remove any "-" character that are present by default in BitConverter.ToString output.
+        public void GetPages(List<string> tutorPageUrls, TimeSpan pageFetchTimeout)
         {
             if (!Directory.Exists(_fsPath))
             {
@@ -29,7 +30,15 @@ namespace LibScrapeTP.ETLSteps.Extract
             using var http = new HttpClient();
             Parallel.ForEach(tutorPageUrls, url =>
             {
-                var page = http.GetAsync(url).Result;
+                var pageFetch = http.GetAsync(url);
+                var fetchCompletedWithinTimeout = pageFetch.Wait(pageFetchTimeout);
+
+                if (!fetchCompletedWithinTimeout)
+                {
+                    return;
+                }
+                
+                var page = pageFetch.Result;
 
                 Debug.Assert(page.IsSuccessStatusCode);
                 if (!page.IsSuccessStatusCode)
@@ -39,7 +48,8 @@ namespace LibScrapeTP.ETLSteps.Extract
                 }
 
                 var pageContent = page.Content.ReadAsStreamAsync().Result;
-                var pathName = Path.Combine(_fsPath, NameProvider(url));
+                var contentAsString = page.Content.ReadAsStringAsync().Result;
+                var pathName = Path.Combine(_fsPath, NameProvider(contentAsString));
                 using var outputFile = File.Create(pathName);
                 pageContent.CopyTo(outputFile);
             });

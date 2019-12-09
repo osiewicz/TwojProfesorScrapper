@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -16,9 +17,11 @@ namespace TwojProfesorMD
         {
             foreach (var val in Enum.GetValues(typeof(University)).Cast<University>().Take(1))
             {
-                var c = new PageUrlExtracter(val);
+                var c = new PageUrlExtracter(val, TimeSpan.FromSeconds(3));
                 var before = DateTime.Now;
                 var task = c.GetTutorPagesUrls().ToList();
+                var fetcher = new TutorPageFetcher(Path.Combine(@"C:\Programowanie", val.ToString()));
+                fetcher.GetPages(new HashSet<string>(task).ToList(), TimeSpan.FromSeconds(3));
                 var count = task.Count;
                 var after = DateTime.Now - before;
 

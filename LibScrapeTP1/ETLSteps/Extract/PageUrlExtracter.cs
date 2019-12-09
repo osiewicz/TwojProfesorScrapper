@@ -20,14 +20,14 @@ namespace LibScrapeTP.ETLSteps.Extract
         private const string _tpBaseUrl = @"http://twojprofesor.pl/";
         private const string _uniSubdirectories = "pracownicy/";
         private readonly string _uniUrl;
+        private readonly TimeSpan _timeout;
 
-        public PageUrlExtracter(University uni)
+        public PageUrlExtracter(University uni, TimeSpan fetchTimeout)
         {
-            this._uniUrl = $"{_tpBaseUrl}{_uniSubdirectories}{Helpers.UniversityToUrlString(uni)}/";
+            _uniUrl = $"{_tpBaseUrl}{_uniSubdirectories}{Helpers.UniversityToUrlString(uni)}/";
+            _timeout = fetchTimeout;
         }
 
-       
-        private static readonly HtmlParser Parser = new HtmlParser();
         public IEnumerable<string> GetTutorPagesUrls()
         {
             // Returns a list of tutor pages  (as URLs) for given university.
@@ -37,16 +37,16 @@ namespace LibScrapeTP.ETLSteps.Extract
             const string tableTag = "TABLE";
             const string tbodyTag = "TBODY";
             const string trTag = "TR";
-
+            var parser = new HtmlParser();
             var listPages = new BlockingCollection<string>();
-            var fillQueueTask = Task.Run(() => GetTutorListPages(listPages, _uniUrl));
+            var fillQueueTask = Task.Run(() => GetTutorListPages(listPages, _uniUrl, _timeout));
 
             var result = new ConcurrentBag<string>();
 
             // TODO: Refactor into Producer/Consumer pattern.
             Parallel.ForEach(listPages.GetConsumingEnumerable(), response =>
             {
-                var document = Parser.ParseDocument(response);
+                var document = parser.ParseDocument(response);
                 var table = document.All.First(x => x.TagName.Equals(tableTag) &&
                                                     x.HasChildNodes &&
                                                     new[] {"table", "table-bordered", "table-hover"}.All(x.ClassList
@@ -65,14 +65,21 @@ namespace LibScrapeTP.ETLSteps.Extract
             return result;
         }
 
-        private static void GetTutorListPages(BlockingCollection<string> toFill, string url)
+        private static void GetTutorListPages(BlockingCollection<string> toFill, string url, TimeSpan timeout)
         {
             using var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:71.0) Gecko/20100101 Firefox/71.0");
             var responses = new List<HttpResponseMessage>();
             foreach (var it in new FragmentedPageEnumerable(url))
             {
                 var request = httpClient.GetAsync(it);
-               
+                var completedWithinTimeout = request.Wait(timeout);
+                if (!completedWithinTimeout)
+                {
+                    // non-fatal.
+                    continue;
+                }
+
                 if (!request.Result.IsSuccessStatusCode)
                 {
                     // We're finished.

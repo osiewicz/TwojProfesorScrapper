@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ExtractDriver": {
+      "commandName": "Project",
+      "commandLineArgs": "-p \"C:\\Programowanie\\Dupa\" -t 5"
+    }
+  }
+}
