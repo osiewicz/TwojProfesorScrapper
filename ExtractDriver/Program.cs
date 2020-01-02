@@ -11,32 +11,30 @@ namespace ExtractDriver
 {
     class Program
     {
-        private static readonly TimeSpan DefaultFetchTimeout = TimeSpan.FromSeconds(5);
-        private static readonly string DefaultRelativeStoragePath = $"./TpExtract{DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss")}";
-        //private static readonly
-
-
-        public class ParseOptions
+        private const uint DefaultFetchTimeout = 5; // in seconds
+        private const string DefaultRelativeStoragePath = "./Extract";
+        internal class ParseOptions
         {
-            [Option('t', "timeout", Required = true)]
+            [Option('t', "timeout", Default = DefaultFetchTimeout)]
             public uint Timeout { get; set; }
-            [Option('p', "path", Required = true)]
+            [Option('p', "path", Default = DefaultRelativeStoragePath)]
             public string StoragePath { get; set; }
         }
         static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<ParseOptions>(args).WithParsed<ParseOptions>( o =>
+            Parser.Default.ParseArguments<ParseOptions>(args).WithParsed(o =>
             {
                 var path = o.StoragePath;
                 var timeout = TimeSpan.FromSeconds(o.Timeout);
                 
-                Parallel.ForEach(Enum.GetValues(typeof(University)).Cast<University>(), university =>
+                Parallel.ForEach(Enum.GetValues(typeof(University)).Cast<University>().Take(1), university =>
                 {
                     var p = Path.Combine(path, university.ToString());
                     if (!Directory.Exists(p))
                     {
                         Directory.CreateDirectory(p);
                     }
+
                     var pages = new HashSet<string>(new PageUrlExtracter(university, timeout).GetTutorPagesUrls());
                     new TutorPageFetcher(p).GetPages(new HashSet<string>(pages).ToList(), timeout);
                 });

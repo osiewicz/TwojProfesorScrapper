@@ -7,11 +7,10 @@ namespace LibScrapeTP.Entities
 {
     public struct Opinion
     {
-        public string Name { get; }
+        public string Name { get; set; }
         public GradeSet Grades { get; }
-        public DateTime AddedOn { get; }
+        public DateTime AddedOn { get; set; }
         [MaybeNull]
-        public string Subject { get; }
-        public int OpinionRating { get; }
+        public string Subject { get; set; }
     }
 }

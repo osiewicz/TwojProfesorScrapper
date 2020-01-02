@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwojProfesorMD", "TwojProfe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibScrapeTP", "LibScrapeTP1\LibScrapeTP.csproj", "{35040960-98A4-44F7-AF50-02C5B6595B2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtractDriver", "ExtractDriver\ExtractDriver.csproj", "{A4551A0D-FD7C-4AD2-8391-756F3306EBC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtractDriver", "ExtractDriver\ExtractDriver.csproj", "{A4551A0D-FD7C-4AD2-8391-756F3306EBC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransformDriver", "TransformDriver\TransformDriver.csproj", "{EB66E26D-CA21-4ECF-9A20-9F4F7A3B478C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{A4551A0D-FD7C-4AD2-8391-756F3306EBC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4551A0D-FD7C-4AD2-8391-756F3306EBC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4551A0D-FD7C-4AD2-8391-756F3306EBC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB66E26D-CA21-4ECF-9A20-9F4F7A3B478C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB66E26D-CA21-4ECF-9A20-9F4F7A3B478C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB66E26D-CA21-4ECF-9A20-9F4F7A3B478C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB66E26D-CA21-4ECF-9A20-9F4F7A3B478C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

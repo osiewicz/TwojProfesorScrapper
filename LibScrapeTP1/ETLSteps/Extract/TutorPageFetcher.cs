@@ -5,6 +5,7 @@ using System.IO;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LibScrapeTP.ETLSteps.Extract
@@ -28,18 +29,19 @@ namespace LibScrapeTP.ETLSteps.Extract
             }
 
             using var http = new HttpClient();
-            Parallel.ForEach(tutorPageUrls, url =>
+            Parallel.ForEach(tutorPageUrls, async url =>
             {
-                var pageFetch = http.GetAsync(url);
-                var fetchCompletedWithinTimeout = pageFetch.Wait(pageFetchTimeout);
-
-                if (!fetchCompletedWithinTimeout)
+                using var ctProvider = new CancellationTokenSource();
+                ctProvider.CancelAfter(pageFetchTimeout);
+                HttpResponseMessage pageFetch = null;
+                try {
+                    pageFetch = await http.GetAsync(url, ctProvider.Token);
+                } catch (OperationCanceledException)
                 {
                     return;
                 }
                 
-                var page = pageFetch.Result;
-
+                var page = pageFetch;
                 Debug.Assert(page.IsSuccessStatusCode);
                 if (!page.IsSuccessStatusCode)
                 {
@@ -47,11 +49,13 @@ namespace LibScrapeTP.ETLSteps.Extract
                     return;
                 }
 
-                var pageContent = page.Content.ReadAsStreamAsync().Result;
-                var contentAsString = page.Content.ReadAsStringAsync().Result;
-                var pathName = Path.Combine(_fsPath, NameProvider(contentAsString));
+                var pageContent = page.Content.ReadAsStreamAsync();
+                await pageContent;
+                var contentAsString = page.Content.ReadAsStringAsync();
+                await contentAsString;
+                var pathName = Path.Combine(_fsPath, NameProvider(contentAsString.Result));
                 using var outputFile = File.Create(pathName);
-                pageContent.CopyTo(outputFile);
+                pageContent.Result.CopyTo(outputFile);
             });
         }
     }
