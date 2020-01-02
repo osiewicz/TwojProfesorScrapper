@@ -17,11 +17,11 @@ namespace LibScrapeTP.Entities
          * System oceniania
          * Odpracowywanie zajęć
          */
-        public int AttractivenessOfClasses { get; }
-        public int Competency { get; }
-        public int EaseOfPassing { get; }
-        public int Friendliness { get; }
-        public int ScoringSystem { get; }
-        public int AbsenceSystem { get; }
+        public int AttractivenessOfClasses { get; set; }
+        public int Competency { get; set; }
+        public int EaseOfPassing { get; set; }
+        public int Friendliness { get; set; }
+        public int ScoringSystem { get; set; }
+        public int AbsenceSystem { get; set; }
     }
 }

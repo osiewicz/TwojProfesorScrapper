@@ -6,11 +6,9 @@ namespace LibScrapeTP.Entities
 {
     public struct Tutor
     {
-        public string Surname { get; }
-        public string Name { get; }
-        public AcademicTitle AcademicTitle { get; }
-        public string MajorDepartment { get; }
-        public string MinorDepartment { get; }
-        public University University { get; }
+        public string Name { get; set; }
+        public AcademicTitle AcademicTitle { get; set; }
+        public string MajorDepartment { get; set; }
+        public University University { get; set; }
     }
 }

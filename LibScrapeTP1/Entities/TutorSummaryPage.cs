@@ -6,8 +6,8 @@ namespace LibScrapeTP.Entities
 {
     public struct TutorSummaryPage
     {
-        public Tutor Tutor { get; }
-        public GradeSet DisplayedGradeSet { get; }
-        public Opinion[] Opinions { get; }
+        public Tutor Tutor { get; set; }
+        public GradeSet DisplayedGradeSet { get; set; }
+        public Opinion[] Opinions { get; set; }
     }
 }

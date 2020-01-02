@@ -7,7 +7,7 @@ using LibScrapeTP;
 
 namespace TransformDriver
 {
-    class Program
+    internal class Program
     {
         internal class ParseOptions
         {
@@ -16,7 +16,8 @@ namespace TransformDriver
             [Option('o', "output", Required = true)]
             public string OutputPath { get; set; }
         }
-        static void Main(string[] args)
+
+        private static void Main(string[] args)
         {
             Parser.Default.ParseArguments<ParseOptions>(args).WithParsed(o =>
             {
