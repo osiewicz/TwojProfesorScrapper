@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection.Emit;
 
 namespace LibScrapeTP.Entities
@@ -78,6 +79,14 @@ namespace LibScrapeTP.Entities
         {
             
             return uni.ToString();
+        }
+
+        public class EnumToIntConvHelper<TEnumeration> where TEnumeration : Enum
+        {
+            public static int Convert(TEnumeration enumeration)
+            {
+                return System.Convert.ToInt32(enumeration);
+            }
         }
     }
 }

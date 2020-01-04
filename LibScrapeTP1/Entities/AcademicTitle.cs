@@ -4,5 +4,8 @@
     {
         Engineer,
         Master,
+        PhD,
+        Pdd, // post-doctoral degree
+        Profesor,
     }
 }
