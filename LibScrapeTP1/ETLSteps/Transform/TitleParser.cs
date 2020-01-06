@@ -18,9 +18,9 @@ namespace LibScrapeTP.ETLSteps.Transform
         // Takes a full title (example: mgr inż. dr hab.) and extracts the highest possible title from it as enum.
         public static AcademicTitle Parse(string text)
         {
-            var highestTitle = abbreviatedTitleToAcademicTitle.Keys.Where(text.Contains).Last();
+            var highestTitle = abbreviatedTitleToAcademicTitle.Where(title=>text.Contains(title.Key)).Max(kv => kv.Value);
 
-            return abbreviatedTitleToAcademicTitle[highestTitle];
+            return highestTitle;
         }
     }
 }

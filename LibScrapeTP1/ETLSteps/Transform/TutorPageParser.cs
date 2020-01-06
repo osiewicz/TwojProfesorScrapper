@@ -89,19 +89,29 @@ namespace LibScrapeTP.ETLSteps.Transform
             };
 
             // A bit of a hack: instead of parsing the page we can reuse page title to get
-            // prof's Name/surname, their title and major/minor department.
+            // prof's Name/surname, their title and major department.
 
+            ret.Tutor = ParsePageTitle(NormalizePageTitle(dom.Title));
+
+            return ret;
+        }
+
+        private static string NormalizePageTitle(string title)
+        {
             const string titleDelimiter = " -";
-            var posOfDelimiter = dom.Title.IndexOf(titleDelimiter, StringComparison.Ordinal);
-            Debug.Assert(posOfDelimiter != -1);
-            if (posOfDelimiter == -1)
+            const int delimiterNotFound = -1;
+            var posOfDelimiter = title.IndexOf(titleDelimiter, StringComparison.Ordinal);
+
+            if (posOfDelimiter != delimiterNotFound)
             {
-                throw new ArgumentException("Page title does not conform to predefined format.");
+                title = title.Substring(0, posOfDelimiter);
             }
 
-            var title = dom.Title.Substring(0, posOfDelimiter).Trim();
-            // Data should match regex: [a-z\. ]* ([A-Z][a-z][ -]?){2,} [A-Z]* ([A-Z][a-z][ -]?){2,}
-            // (barring Polish letters).
+            return title.Trim();
+        }
+
+        private static Tutor ParsePageTitle(string title)
+        {
             var titleAsGroups = TitlePattern.Match(title);
 
             Debug.Assert(titleAsGroups.Success);
@@ -116,15 +126,14 @@ namespace LibScrapeTP.ETLSteps.Transform
             var shorthandUniversityName = string.Join(' ', titleAsGroups.Groups[3].Captures);
             Enum.TryParse<University>(shorthandUniversityName.ToLower(), out var university);
             var department = string.Join(' ', titleAsGroups.Groups[4].Captures);
-            ret.Tutor = new Tutor()
+
+            return new Tutor()
             {
                 MajorDepartment = department,
                 Name = name,
-                University =  university,
+                University = university,
                 AcademicTitle = TitleParser.Parse(academicTitles)
             };
-
-            return ret;
         }
     }
 }
