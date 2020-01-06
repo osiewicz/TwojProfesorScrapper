@@ -48,12 +48,12 @@ namespace LibScrapeTP.ETLSteps.Transform
 
                 var grades = new GradeSet()
                 {
-                    AttractivenessOfClasses = int.Parse(gradesAsMatches[0].Groups[1].Value),
-                    Competency = int.Parse(gradesAsMatches[1].Groups[1].Value),
-                    EaseOfPassing = int.Parse(gradesAsMatches[2].Groups[1].Value),
-                    Friendliness = int.Parse(gradesAsMatches[3].Groups[1].Value),
-                    ScoringSystem = int.Parse(gradesAsMatches[4].Groups[1].Value),
-                    AbsenceSystem = int.Parse(gradesAsMatches[5].Groups[1].Value),
+                    AttractivenessOfClasses = short.Parse(gradesAsMatches[0].Groups[1].Value),
+                    Competency = short.Parse(gradesAsMatches[1].Groups[1].Value),
+                    EaseOfPassing = short.Parse(gradesAsMatches[2].Groups[1].Value),
+                    Friendliness = short.Parse(gradesAsMatches[3].Groups[1].Value),
+                    ScoringSystem = short.Parse(gradesAsMatches[4].Groups[1].Value),
+                    AbsenceSystem = short.Parse(gradesAsMatches[5].Groups[1].Value),
                 };
 
                 var commentText = opinionAsDiv.Children.First(tag => tag.TagName.Equals("P")).InnerHtml;
@@ -80,12 +80,12 @@ namespace LibScrapeTP.ETLSteps.Transform
             
             ret.DisplayedGradeSet = new GradeSet()
             {
-                AttractivenessOfClasses = int.Parse(gradesOnTopOfPage[0].Groups[1].Value),
-                Competency = int.Parse(gradesOnTopOfPage[1].Groups[1].Value),
-                EaseOfPassing = int.Parse(gradesOnTopOfPage[2].Groups[1].Value),
-                Friendliness = int.Parse(gradesOnTopOfPage[3].Groups[1].Value),
-                ScoringSystem = int.Parse(gradesOnTopOfPage[4].Groups[1].Value),
-                AbsenceSystem = int.Parse(gradesOnTopOfPage[5].Groups[1].Value),
+                AttractivenessOfClasses = short.Parse(gradesOnTopOfPage[0].Groups[1].Value),
+                Competency = short.Parse(gradesOnTopOfPage[1].Groups[1].Value),
+                EaseOfPassing = short.Parse(gradesOnTopOfPage[2].Groups[1].Value),
+                Friendliness = short.Parse(gradesOnTopOfPage[3].Groups[1].Value),
+                ScoringSystem = short.Parse(gradesOnTopOfPage[4].Groups[1].Value),
+                AbsenceSystem = short.Parse(gradesOnTopOfPage[5].Groups[1].Value),
             };
 
             // A bit of a hack: instead of parsing the page we can reuse page title to get
