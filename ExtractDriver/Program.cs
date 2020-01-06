@@ -6,6 +6,7 @@ using LibScrapeTP.ETLSteps.Extract;
 using System.Collections.Generic;
 using System.IO;
 using CommandLine;
+using System.Threading;
 
 namespace ExtractDriver
 {
@@ -20,14 +21,15 @@ namespace ExtractDriver
             [Option('p', "path", Default = DefaultRelativeStoragePath)]
             public string StoragePath { get; set; }
         }
-        static void Main(string[] args)
+
+        private static void Main(string[] args)
         {
             Parser.Default.ParseArguments<ParseOptions>(args).WithParsed(o =>
             {
                 var path = o.StoragePath;
                 var timeout = TimeSpan.FromSeconds(o.Timeout);
-                
-                Parallel.ForEach(Enum.GetValues(typeof(University)).Cast<University>().Take(1), university =>
+                var totalCountOfFiles = 0;
+                Parallel.ForEach(Enum.GetValues(typeof(University)).Cast<University>(), university =>
                 {
                     var p = Path.Combine(path, university.ToString());
                     if (!Directory.Exists(p))
@@ -37,7 +39,10 @@ namespace ExtractDriver
 
                     var pages = new HashSet<string>(new PageUrlExtracter(university, timeout).GetTutorPagesUrls());
                     new TutorPageFetcher(p).GetPages(new HashSet<string>(pages).ToList(), timeout);
+                    Interlocked.Add(ref totalCountOfFiles, pages.Count);
                 });
+
+                Console.WriteLine($"Fetched {totalCountOfFiles} .html files to {o.StoragePath}");
             });
         }
     }

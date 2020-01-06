@@ -117,30 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AltOptions" xml:space="preserve">
-    <value>D) Dump
-A) Analyze
-T) Truncate</value>
+  <data name="Prompt1" xml:space="preserve">
+    <value>Select path from which .html files should be loaded.</value>
   </data>
-  <data name="Header" xml:space="preserve">
-    <value>_______            _ _____            __                           _                                            
- |__   __|          (_)  __ \          / _|                         | |                                           
-    | |_      _____  _| |__) | __ ___ | |_ ___  ___  ___  _ __ _ __ | |  ___  ___ _ __ __ _ _ __  _ __   ___ _ __ 
-    | \ \ /\ / / _ \| |  ___/ '__/ _ \|  _/ _ \/ __|/ _ \| '__| '_ \| | / __|/ __| '__/ _` | '_ \| '_ \ / _ \ '__|
-    | |\ V  V / (_) | | |   | | | (_) | ||  __/\__ \ (_) | |_ | |_) | | \__ \ (__| | | (_| | |_) | |_) |  __/ |   
-    |_| \_/\_/ \___/| |_|   |_|  \___/|_| \___||___/\___/|_(_)| .__/|_| |___/\___|_|  \__,_| .__/| .__/ \___|_|   
-                   _/ |                                       | |                          | |   | |              
-                  |__/                                        |_|                          |_|   |_|</value>
+  <data name="Prompt2" xml:space="preserve">
+    <value>Select path in which serialized output shall be placed.</value>
   </data>
-  <data name="Options" xml:space="preserve">
-    <value>E) Extract
-T) Transform
-L) Load</value>
-  </data>
-  <data name="Prompt" xml:space="preserve">
-    <value>Is everything alright my dear lord? You seem hesitant about your choices..</value>
-  </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>Dear client, my name is Tadeusz, Master of Computer Networks - how may I be of service? (Shh! Multiple options can be combined for your convenience my dear sir!)</value>
+  <data name="WarnExtractNotDone" xml:space="preserve">
+    <value>Thou have not extracted the data from the website! Yer be damned!</value>
   </data>
 </root>

@@ -13,7 +13,8 @@ namespace LibScrapeTP.ETLSteps.Transform
     {
         private static readonly Regex SummaryGradePattern = new Regex("<input[^>]*value=\"(\\d\\d?)\"", RegexOptions.Compiled);
         private static readonly Regex OpinionGradePattern = new Regex(";\">(\\d\\d?)<", RegexOptions.Compiled);
-        private static readonly Regex TitlePattern = new Regex(@"^([\p{Ll}\. ]*) (\p{Lu}\p{Ll}+[ -]?){2,} (\p{Lu})* (\p{Lu}\p{Ll}*[ -]?){2,}$", RegexOptions.Compiled);
+        //private static readonly Regex TitlePattern = new Regex(@"^([\p{Ll}\. ]*) (\p{Lu}\p{Ll}+[ -]?){2,} (\p{Lu})* (\p{Lu}\p{Ll}*[ -]?){2,}$", RegexOptions.Compiled);
+        private static readonly Regex TitlePattern = new Regex(@"^([\p{Ll}\. ]*) (\p{Lu}\p{Ll}+[ -]?){2,} (\p{Lu})* ((i |\p{Lu}\p{Ll}*[ -]?)){2,}$", RegexOptions.Compiled);
         public static TutorSummaryPage Parse(Stream inputStream)
         {
             var htmlParser = new HtmlParser();
@@ -114,7 +115,7 @@ namespace LibScrapeTP.ETLSteps.Transform
         {
             var titleAsGroups = TitlePattern.Match(title);
 
-            Debug.Assert(titleAsGroups.Success);
+            //Debug.Assert(titleAsGroups.Success);
             if (!titleAsGroups.Success)
             {
                 throw new ArgumentException("Page title does not conform to predefined format.");

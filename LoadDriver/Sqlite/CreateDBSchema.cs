@@ -17,8 +17,8 @@ namespace LoadDriver.Sqlite
                 "DROP TABLE IF EXISTS GradeSet",
                 "CREATE TABLE GradeSet(id INTEGER PRIMARY KEY, attractiveness INTEGER, competency INTEGER, eop INTEGER, friendliness INTEGER, scoring INTEGER, absence INTEGER)",
                 "DROP TABLE IF EXISTS Opinion",
-                "CREATE TABLE Opinion(id INTEGER PRIMARY KEY, tutor_id  INTEGER, username TEXT, gsid INTEGER, date DATE, subject TEXT, comment TEXT " + 
-                "FOREIGN KEY (tutor_id) REFERENCES Tutor(id) FOREIGN_KEY (gsid) REFERENCES GradeSet(id))",
+                "CREATE TABLE Opinion(id INTEGER PRIMARY KEY, tutor_id  INTEGER, username TEXT, gsid INTEGER, date DATE, subject TEXT, comment TEXT, " + 
+                "FOREIGN KEY (tutor_id) REFERENCES Tutor(id), FOREIGN KEY (gsid) REFERENCES GradeSet(id))",
             })
             {
                 using var comm = conn.CreateCommand();

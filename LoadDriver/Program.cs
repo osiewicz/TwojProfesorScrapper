@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using CommandLine;
 using LibScrapeTP.Entities;
 using LoadDriver.Sqlite;
-using Microsoft.Data.Sqlite;
+using System.Data.SQLite;
 using ProtoBuf;
+using System.Threading;
 
 namespace LoadDriver
 {
@@ -27,8 +28,6 @@ namespace LoadDriver
             [Option('e', "export", Default = false)]
             public bool Export { get; set; }
 
-            [Option('d', "delete_input", Default = true)]
-            public bool DeleteInput { get; set; }
 
             [Option('c', "export_csv", Default = false)]
             public bool ExportCsv { get; set; }
@@ -41,7 +40,16 @@ namespace LoadDriver
                 var shouldCreateNewDb = !File.Exists(opts.SqlitePath);
                 if ((opts.Export || opts.ExportCsv) && !shouldCreateNewDb)
                 {
-
+                    using var connc = new SQLiteConnection($@"Data Source={opts.SqlitePath};Version=3;");
+                    connc.Open();
+                    var wrap = new SQLiteWrapper(connc);
+                    var tutors = wrap.GetAll();
+                    using var file = File.OpenWrite("tutors.csv");
+                    using var sw = new StreamWriter(file);
+                    foreach (var tut in tutors)
+                    {
+                        sw.WriteLine(string.Join(',', tut.Name, tut.University, tut.AcademicTitle, tut.MajorDepartment));
+                    }
                 }
 
                 if (opts.Flush || shouldCreateNewDb)
@@ -52,29 +60,40 @@ namespace LoadDriver
                     File.Delete(opts.SqlitePath);
                     File.Move(tmp, opts.SqlitePath);
                 }
-                using var conn = new SqliteConnection($@"URI=file:{opts.SqlitePath}");
+
+                using var conn = new SQLiteConnection($@"Data Source={opts.SqlitePath};Version=3;");
+                conn.Open();
+                var d = Directory.EnumerateDirectories(opts.InputPath).SelectMany(Directory.EnumerateFiles).ToList();
+                Console.WriteLine($"Processing {d.Count} input files.");
+
+                var countOfOpinions = 0;
                 Parallel.ForEach(
-                    Directory.EnumerateDirectories(opts.InputPath).SelectMany(Directory.EnumerateDirectories)
-                        .SelectMany(Directory.EnumerateDirectories).SelectMany(Directory.EnumerateFiles),
+                    Directory.EnumerateFiles(opts.InputPath),
                     tutorFilePath =>
                     {
                         using var file = File.OpenRead(tutorFilePath);
                         var deserialized = Serializer.Deserialize<TutorSummaryPage>(file);
                         var db = new SQLiteWrapper(conn);
-                        foreach (var opinion in deserialized.Opinions)
+                        var count = 0;
+                        if (deserialized.Opinions != null)
                         {
-                            // Could potentially be optimized in terms of Tutor lookup - right now
-                            // each new opinion requires looking up the same tutor, even though
-                            // only one time would suffice.
-                            db.Add(opinion, deserialized.Tutor);
+                            foreach (var opinion in deserialized.Opinions)
+                            {
+                                // Could potentially be optimized in terms of Tutor lookup - right now
+                                // each new opinion requires looking up the same tutor, even though
+                                // only one time would suffice.
+                                db.Add(opinion, deserialized.Tutor);
+                            }
+                            count = deserialized.Opinions.Length;
+                        } else
+                        {
+                            db.Add(deserialized.Tutor);
                         }
+                        Interlocked.Add(ref countOfOpinions, count);
                     });
+                conn.Close();
 
-                if (opts.DeleteInput)
-                {
-                    Directory.Delete(opts.InputPath);
-                    Directory.CreateDirectory(opts.InputPath);
-                }
+                Console.WriteLine($"Extracted {countOfOpinions} opinions");
             });
         }
     }

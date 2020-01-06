@@ -22,14 +22,14 @@ namespace TwojProfesor.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class TransformResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal TransformResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace TwojProfesor.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TwojProfesor.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TwojProfesor.Properties.TransformResources", typeof(TransformResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,55 +61,29 @@ namespace TwojProfesor.Properties {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu D) Dump
-        ///A) Analyze
-        ///T) Truncate.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Select path from which .html files should be loaded..
         /// </summary>
-        internal static string AltOptions {
+        internal static string Prompt1 {
             get {
-                return ResourceManager.GetString("AltOptions", resourceCulture);
+                return ResourceManager.GetString("Prompt1", resourceCulture);
             }
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu _______            _ _____            __                           _                                            
-        /// |__   __|          (_)  __ \          / _|                         | |                                           
-        ///    | |_      _____  _| |__) | __ ___ | |_ ___  ___  ___  _ __ _ __ | |  ___  ___ _ __ __ _ _ __  _ __   ___ _ __ 
-        ///    | \ \ /\ / / _ \| |  ___/ &apos;__/ _ \|  _/ _ \/ __|/ _ \| &apos;__| &apos;_ \| | / __|/ __| &apos;__/ _` | &apos;_ \| &apos;_ \ / _ \ &apos;__|
-        ///    | |\ V  V / (_) | | |   | | | (_) | ||  __/\__ [obcięto pozostałą część ciągu]&quot;;.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Select path in which serialized output shall be placed..
         /// </summary>
-        internal static string Header {
+        internal static string Prompt2 {
             get {
-                return ResourceManager.GetString("Header", resourceCulture);
+                return ResourceManager.GetString("Prompt2", resourceCulture);
             }
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu E) Extract
-        ///T) Transform
-        ///L) Load.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Thou have not extracted the data from the website! Yer be damned!.
         /// </summary>
-        internal static string Options {
+        internal static string WarnExtractNotDone {
             get {
-                return ResourceManager.GetString("Options", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Is everything alright my dear lord? You seem hesitant about your choices...
-        /// </summary>
-        internal static string Prompt {
-            get {
-                return ResourceManager.GetString("Prompt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Dear client, my name is Tadeusz, Master of Computer Networks - how may I be of service? (Shh! Multiple options can be combined for your convenience my dear sir!).
-        /// </summary>
-        internal static string Welcome {
-            get {
-                return ResourceManager.GetString("Welcome", resourceCulture);
+                return ResourceManager.GetString("WarnExtractNotDone", resourceCulture);
             }
         }
     }

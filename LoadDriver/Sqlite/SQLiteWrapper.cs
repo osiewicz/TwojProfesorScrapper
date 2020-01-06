@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Diagnostics;
 using System.Text;
+using LibScrapeTP;
 using LibScrapeTP.Entities;
-using Microsoft.Data.Sqlite;
 
 namespace LoadDriver.Sqlite
 {
     class SQLiteWrapper
     {
-        private readonly SqliteConnection _conn;
+        private readonly SQLiteConnection _conn;
 
-        public SQLiteWrapper(SqliteConnection conn)
+        public SQLiteWrapper(SQLiteConnection conn)
         {
             this._conn = conn;
         }
@@ -20,7 +21,7 @@ namespace LoadDriver.Sqlite
         {
             using var comm = _conn.CreateCommand();
             comm.CommandText =
-                "SELECT id from Tutor where name = '@name' and title = '@title' and department = '@department' and university = '@university'";
+                "SELECT id from Tutor where name=@name and title=@title and department=@department and university=@university";
 
             comm.Parameters.AddWithValue("@name", tutor.Name);
             comm.Parameters.AddWithValue("@title", tutor.AcademicTitle.ToString());
@@ -62,7 +63,7 @@ namespace LoadDriver.Sqlite
         {
             using var comm = _conn.CreateCommand();
             comm.CommandText =
-                "SELECT id from GradeSet where attractiveness='@attr' and competency='@competency' and eop='@eop' and friendliness='@friendliness' and scoring='@scoring' and absence='@absence'";
+                "SELECT id from GradeSet where attractiveness=@attr and competency=@competency and eop=@eop and friendliness=@friendliness and scoring=@scoring and absence=@absence";
             comm.Parameters.AddWithValue("@attr", gs.AttractivenessOfClasses);
             comm.Parameters.AddWithValue("@competency", gs.Competency);
             comm.Parameters.AddWithValue("@eop", gs.EaseOfPassing);
@@ -87,7 +88,7 @@ namespace LoadDriver.Sqlite
                 using var command = _conn.CreateCommand();
                 command.CommandText =
                     "INSERT INTO GradeSet(attractiveness, competency, eop, friendliness, scoring, absence) VALUES(@attractiveness, @competency, @eop, @friendliness, @scoring, @absence)";
-                command.Parameters.AddWithValue("@attr", gs.AttractivenessOfClasses);
+                command.Parameters.AddWithValue("@attractiveness", gs.AttractivenessOfClasses);
                 command.Parameters.AddWithValue("@competency", gs.Competency);
                 command.Parameters.AddWithValue("@eop", gs.EaseOfPassing);
                 command.Parameters.AddWithValue("@friendliness", gs.Friendliness);
@@ -108,7 +109,7 @@ namespace LoadDriver.Sqlite
         {
             using var comm = _conn.CreateCommand();
             comm.CommandText =
-                "SELECT id from Opinion where username='@username' and date='@date' and subject='@subject' and comment='@comment'";
+                "SELECT id from Opinion where username=@username and date=@date and subject=@subject and comment=@comment";
             comm.Parameters.AddWithValue("@username", opinion.Name);
             comm.Parameters.AddWithValue("@date", opinion.AddedOn);
             comm.Parameters.AddWithValue("@subject", opinion.Subject);
@@ -134,7 +135,7 @@ namespace LoadDriver.Sqlite
                 command.CommandText =
                     "INSERT INTO Opinion(tutor_id, username, gsid, date, subject, comment) VALUES(@tid, @uname, @gsid, @date, @subject, @comment)";
                 command.Parameters.AddWithValue("@tid", tid);
-                command.Parameters.AddWithValue("@username", opinion.Name);
+                command.Parameters.AddWithValue("@uname", opinion.Name);
                 command.Parameters.AddWithValue("@gsid", gsid);
                 command.Parameters.AddWithValue("@date", opinion.AddedOn);
                 command.Parameters.AddWithValue("@subject", opinion.Subject);
@@ -148,6 +149,27 @@ namespace LoadDriver.Sqlite
             }
 
             return id.Value;
+        }
+
+        public List<Tutor> GetAll()
+        {
+            using var command = _conn.CreateCommand();
+            command.CommandText = "SELECT name, title, department, university from Tutor";
+            var r = command.ExecuteReader();
+            var ret = new List<Tutor>();
+            while (r.Read())
+            {
+                ret.Add(new Tutor()
+                {
+                    Name = r.GetString(0),
+                    AcademicTitle = Enum.Parse<AcademicTitle>(r.GetString(1)),
+                    MajorDepartment = r.GetString(2),
+                    University = Enum.Parse<University>(r.GetString(3))
+
+                });
+            };
+
+            return ret;
         }
     }
 }
