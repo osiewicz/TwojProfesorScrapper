@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LibScrapeTP.Utilities
 {
-    internal class FragmentedPageIterator : IEnumerator<string>
+    public class FragmentedPageIterator : IEnumerator<string>
     {
         public string Current { get; private set; }
         private readonly string baseUrl;

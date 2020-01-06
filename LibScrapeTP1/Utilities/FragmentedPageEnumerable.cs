@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LibScrapeTP.Utilities
 {
-    internal sealed class FragmentedPageEnumerable : IEnumerable<string>
+    public sealed class FragmentedPageEnumerable : IEnumerable<string>
     {
         private readonly string _baseUrl;
 
