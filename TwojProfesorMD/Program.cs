@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using LibScrapeTP;
 using LibScrapeTP.Entities;
+using TwojProfesorMD.Properties;
 
 
 namespace TwojProfesorMD
@@ -15,7 +16,8 @@ namespace TwojProfesorMD
     {
         private static void Main(string[] args)
         {
-
+            Console.WriteLine(Resources.Header);
+            int i = 5;
         }
     }
 }
