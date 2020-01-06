@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwojProfesorMD", "TwojProfesorMD\TwojProfesorMD.csproj", "{F8B08A39-C5A2-48AF-A042-F233C537469F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwojProfesor", "TwojProfesorMD\TwojProfesor.csproj", "{F8B08A39-C5A2-48AF-A042-F233C537469F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibScrapeTP", "LibScrapeTP1\LibScrapeTP.csproj", "{35040960-98A4-44F7-AF50-02C5B6595B2D}"
 EndProject
@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtractDriver", "ExtractDri
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransformDriver", "TransformDriver\TransformDriver.csproj", "{EB66E26D-CA21-4ECF-9A20-9F4F7A3B478C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadDriver", "LoadDriver\LoadDriver.csproj", "{37578D51-481B-4CEB-86AC-71BA265BE3E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoadDriver", "LoadDriver\LoadDriver.csproj", "{37578D51-481B-4CEB-86AC-71BA265BE3E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

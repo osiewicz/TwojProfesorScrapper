@@ -20,16 +20,16 @@ namespace LibScrapeTP.Entities
          * Odpracowywanie zajęć
          */
         [ProtoMember(1)]
-        public int AttractivenessOfClasses { get; set; }
+        public short AttractivenessOfClasses { get; set; }
         [ProtoMember(2)]
-        public int Competency { get; set; }
+        public short Competency { get; set; }
         [ProtoMember(3)]
-        public int EaseOfPassing { get; set; }
+        public short EaseOfPassing { get; set; }
         [ProtoMember(4)]
-        public int Friendliness { get; set; }
+        public short Friendliness { get; set; }
         [ProtoMember(5)]
-        public int ScoringSystem { get; set; }
+        public short ScoringSystem { get; set; }
         [ProtoMember(6)]
-        public int AbsenceSystem { get; set; }
+        public short AbsenceSystem { get; set; }
     }
 }

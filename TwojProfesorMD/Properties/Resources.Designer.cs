@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TwojProfesorMD.Properties {
+namespace TwojProfesor.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace TwojProfesorMD.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TwojProfesorMD.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TwojProfesor.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,6 +61,17 @@ namespace TwojProfesorMD.Properties {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu D) Dump
+        ///A) Analyze
+        ///T) Truncate.
+        /// </summary>
+        internal static string AltOptions {
+            get {
+                return ResourceManager.GetString("AltOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu _______            _ _____            __                           _                                            
         /// |__   __|          (_)  __ \          / _|                         | |                                           
         ///    | |_      _____  _| |__) | __ ___ | |_ ___  ___  ___  _ __ _ __ | |  ___  ___ _ __ __ _ _ __  _ __   ___ _ __ 
@@ -70,6 +81,35 @@ namespace TwojProfesorMD.Properties {
         internal static string Header {
             get {
                 return ResourceManager.GetString("Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu E) Extract
+        ///T) Transform
+        ///L) Load.
+        /// </summary>
+        internal static string Options {
+            get {
+                return ResourceManager.GetString("Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Is every alright my dear lord? You seem hesitant about your choices...
+        /// </summary>
+        internal static string Prompt {
+            get {
+                return ResourceManager.GetString("Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Dear client, my name is Tadeusz, Master of Computer Networks - how may I be of service? (Shh! Multiple options can be combined for your convenience my dear sir!).
+        /// </summary>
+        internal static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
             }
         }
     }
