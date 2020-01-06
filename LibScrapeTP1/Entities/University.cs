@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection.Emit;
+using ProtoBuf;
 
 namespace LibScrapeTP.Entities
 {
+    [ProtoContract]
     public enum University
     {
         pb, // Politechnika Białystocka

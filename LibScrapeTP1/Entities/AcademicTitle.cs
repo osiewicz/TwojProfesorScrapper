@@ -1,5 +1,8 @@
-﻿namespace LibScrapeTP
+﻿using ProtoBuf;
+
+namespace LibScrapeTP
 {
+    [ProtoContract]
     public enum AcademicTitle
     {
         Engineer,

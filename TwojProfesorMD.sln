@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibScrapeTP", "LibScrapeTP1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtractDriver", "ExtractDriver\ExtractDriver.csproj", "{A4551A0D-FD7C-4AD2-8391-756F3306EBC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransformDriver", "TransformDriver\TransformDriver.csproj", "{EB66E26D-CA21-4ECF-9A20-9F4F7A3B478C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransformDriver", "TransformDriver\TransformDriver.csproj", "{EB66E26D-CA21-4ECF-9A20-9F4F7A3B478C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadDriver", "LoadDriver\LoadDriver.csproj", "{37578D51-481B-4CEB-86AC-71BA265BE3E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{EB66E26D-CA21-4ECF-9A20-9F4F7A3B478C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB66E26D-CA21-4ECF-9A20-9F4F7A3B478C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB66E26D-CA21-4ECF-9A20-9F4F7A3B478C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37578D51-481B-4CEB-86AC-71BA265BE3E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37578D51-481B-4CEB-86AC-71BA265BE3E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37578D51-481B-4CEB-86AC-71BA265BE3E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37578D51-481B-4CEB-86AC-71BA265BE3E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

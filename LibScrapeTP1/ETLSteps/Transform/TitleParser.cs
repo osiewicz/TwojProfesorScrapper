@@ -7,7 +7,7 @@ namespace LibScrapeTP.ETLSteps.Transform
 {
     internal static class TitleParser
     {
-        private static readonly Dictionary<string, AcademicTitle> abbreviatedTitleToAcademicTitle = new Dictionary<string, AcademicTitle>()
+        private static readonly Dictionary<string, AcademicTitle> AbbreviatedTitleToAcademicTitle = new Dictionary<string, AcademicTitle>()
         {
             {"inż", AcademicTitle.Engineer},
             {"mgr", AcademicTitle.Master },
@@ -18,7 +18,8 @@ namespace LibScrapeTP.ETLSteps.Transform
         // Takes a full title (example: mgr inż. dr hab.) and extracts the highest possible title from it as enum.
         public static AcademicTitle Parse(string text)
         {
-            var highestTitle = abbreviatedTitleToAcademicTitle.Where(title=>text.Contains(title.Key)).Max(kv => kv.Value);
+            // Dictionary keys are not guaranteed to be stored in the same order as in initializer.
+            var highestTitle = AbbreviatedTitleToAcademicTitle.Where(title=>text.Contains(title.Key)).Max(kv => kv.Value);
 
             return highestTitle;
         }
