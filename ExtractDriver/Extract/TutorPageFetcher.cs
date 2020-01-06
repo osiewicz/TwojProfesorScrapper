@@ -29,19 +29,15 @@ namespace LibScrapeTP.ETLSteps.Extract
             }
 
             using var http = new HttpClient();
-            Parallel.ForEach(tutorPageUrls, async url =>
+            Parallel.ForEach(tutorPageUrls, url =>
             {
-                using var ctProvider = new CancellationTokenSource();
-                ctProvider.CancelAfter(pageFetchTimeout);
-                HttpResponseMessage pageFetch = null;
-                try {
-                    pageFetch = await http.GetAsync(url, ctProvider.Token);
-                } catch (OperationCanceledException)
+                var pageFetch = http.GetAsync(url);
+                var completedWithinTimeout = pageFetch.Wait(pageFetchTimeout);
+                if (!completedWithinTimeout)
                 {
                     return;
                 }
-                
-                var page = pageFetch;
+                var page = pageFetch.Result;
                 Debug.Assert(page.IsSuccessStatusCode);
                 if (!page.IsSuccessStatusCode)
                 {
@@ -50,9 +46,7 @@ namespace LibScrapeTP.ETLSteps.Extract
                 }
 
                 var pageContent = page.Content.ReadAsStreamAsync();
-                await pageContent;
                 var contentAsString = page.Content.ReadAsStringAsync();
-                await contentAsString;
                 var pathName = Path.Combine(_fsPath, NameProvider(contentAsString.Result));
                 using var outputFile = File.Create(pathName);
                 pageContent.Result.CopyTo(outputFile);
